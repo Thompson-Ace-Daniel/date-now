@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
  const router = useRouter();
-  const loc = "account-panel/signup";
+  const loc = "(tabs)";
   return (
     <SafeAreaView>
       <Text className="text-white">1234sjfvjijviov</Text>
