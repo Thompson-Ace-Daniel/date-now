@@ -1,112 +1,121 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { CleanView } from "@/components/clean-view";
+import { Colors, Fonts } from "@/constants/theme";
+import { useColorScheme } from "@/hooks/use-color-scheme";
+import { LinearGradient } from "expo-linear-gradient";
+import { Flame, Heart } from "lucide-react-native";
+import React, { useState } from "react";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 
-import { Collapsible } from '@/components/ui/collapsible';
-import { ExternalLink } from '@/components/external-link';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Fonts } from '@/constants/theme';
+export default function LikesScreen() {
+  const colorScheme = useColorScheme();
+  const colors = Colors[colorScheme ?? "light"];
+  const [activeTab, setActiveTab] = useState("likes");
 
-export default function TabThreeScreen() {
+  const goldGradient = ["#F5D372", "#E5A024"] as const;
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText
-          type="title"
-          style={{
-            fontFamily: Fonts.rounded,
-          }}>
-          Explore
-        </ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image
-          source={require('@/assets/images/react-logo.png')}
-          style={{ width: 100, height: 100, alignSelf: 'center' }}
-        />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful{' '}
-          <ThemedText type="defaultSemiBold" style={{ fontFamily: Fonts.mono }}>
-            react-native-reanimated
-          </ThemedText>{' '}
-          library to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
+    <CleanView>
+      <View className="px-5 py-3">
+        <View className="flex-row items-center">
+          <Flame color={colors.tint} fill={colors.tint} size={30} />
+          <Text
+            style={{ fontFamily: Fonts.rounded, color: colors.text }}
+            className="text-2xl font-black ml-1 tracking-tighter"
+          >
+            Date Now
+          </Text>
+        </View>
+      </View>
+
+      <View className="flex-row border-b border-gray-800/50">
+        <TouchableOpacity
+          onPress={() => setActiveTab("likes")}
+          className="flex-1 items-center py-4"
+        >
+          <Text
+            style={{
+              color: activeTab === "likes" ? colors.text : colors.icon,
+              fontFamily: Fonts.rounded,
+            }}
+            className="text-sm font-bold"
+          >
+            0 Likes
+          </Text>
+          {activeTab === "likes" && (
+            <View className="absolute bottom-0 w-full h-[2px] bg-[#FF4458]" />
+          )}
+        </TouchableOpacity>
+
+        <View className="w-[1px] h-6 bg-gray-800 self-center" />
+
+        <TouchableOpacity
+          onPress={() => setActiveTab("top-picks")}
+          className="flex-1 items-center py-4 relative"
+        >
+          <View className="flex-row items-center">
+            <Text
+              style={{
+                color: activeTab === "top-picks" ? colors.text : colors.icon,
+                fontFamily: Fonts.rounded,
+              }}
+              className="text-sm font-bold"
+            >
+              Top Picks
+            </Text>
+            <View className="w-2 h-2 bg-[#FF4458] rounded-full ml-1" />
+          </View>
+          {activeTab === "top-picks" && (
+            <View className="absolute bottom-0 w-full h-[2px] bg-[#FF4458]" />
+          )}
+        </TouchableOpacity>
+      </View>
+
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }} className="flex-1">
+        <View className="py-8 px-10">
+          <Text
+            style={{ color: colors.text }}
+            className="text-center text-sm font-semibold leading-5 opacity-90"
+          >
+            Upgrade to Gold to see people who have already liked you.
+          </Text>
+        </View>
+
+        <View className="flex-1 items-center justify-center -mt-20">
+          <View className="flex-row items-center">
+            <View className="mr-2 gap-y-1.5 items-end">
+              <View className="w-6 h-1.5 bg-[#E5A024] rounded-full opacity-60" />
+              <View className="w-8 h-1.5 bg-[#F5D372] rounded-full" />
+              <View className="w-5 h-1.5 bg-[#E5A024] rounded-full opacity-40" />
+            </View>
+            <Heart color="#E5A024" fill="#F5D372" size={70} strokeWidth={1} />
+          </View>
+
+          <Text
+            style={{ color: colors.text }}
+            className="mt-10 text-lg font-bold tracking-tight"
+          >
+            See people who liked you with Date Now Gold™
+          </Text>
+        </View>
+
+        <View className="px-10 pb-12">
+          <TouchableOpacity activeOpacity={0.9}>
+            <LinearGradient
+              colors={goldGradient}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              className="py-5 rounded-full items-center shadow-lg"
+            >
+              <Text
+                style={{ fontFamily: Fonts.rounded }}
+                className="text-black font-black text-lg tracking-tight"
+              >
+                See Who Likes You
+              </Text>
+            </LinearGradient>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </CleanView>
   );
 }
-
-const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
-  },
-  titleContainer: {
-    flexDirection: 'row',
-    gap: 8,
-  },
-});

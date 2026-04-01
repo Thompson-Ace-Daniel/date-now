@@ -4,10 +4,21 @@ import { Stack } from "expo-router";
 
 export default function RootLayout() {
   return (
-    <Stack>
-      {/* This ensures the (tabs) group is handled as the main entry */}
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      
-    </Stack>
+    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+      <Stack>
+        <Stack.Screen name="account-panel" options={{ headerShown: false }} />
+
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+
+        <Stack.Screen name="screens" options={{ headerShown: false }} />
+
+        <Stack.Screen
+          name="modal"
+          options={{ presentation: "modal", title: "Modal" }}
+        />
+      </Stack>
+
+      <StatusBar style="auto" />
+    </ThemeProvider>
   );
 }
