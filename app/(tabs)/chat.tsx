@@ -1,112 +1,98 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { CleanView } from "@/components/clean-view";
+import { Colors, Fonts } from "@/constants/theme";
+import { useColorScheme } from "@/hooks/use-color-scheme";
+import { Flame, MessageSquare, Search, Shield } from "lucide-react-native";
+import React from "react";
+import {
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
-import { Collapsible } from '@/components/ui/collapsible';
-import { ExternalLink } from '@/components/external-link';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Fonts } from '@/constants/theme';
+export default function ChatScreen() {
+  const colorScheme = useColorScheme();
+  const colors = Colors[colorScheme ?? "light"];
 
-export default function TabFourScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText
-          type="title"
-          style={{
-            fontFamily: Fonts.rounded,
-          }}>
-          Explore
-        </ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image
-          source={require('@/assets/images/react-logo.png')}
-          style={{ width: 100, height: 100, alignSelf: 'center' }}
-        />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful{' '}
-          <ThemedText type="defaultSemiBold" style={{ fontFamily: Fonts.mono }}>
-            react-native-reanimated
-          </ThemedText>{' '}
-          library to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
+    <CleanView>
+      <View className="flex-row justify-between items-center px-5 py-3">
+        <View className="flex-row items-center">
+          <Flame color={colors.tint} fill={colors.tint} size={30} />
+          <Text
+            style={{ fontFamily: Fonts.rounded, color: colors.text }}
+            className="text-2xl font-black ml-1 tracking-tighter"
+          >
+            Date Now
+          </Text>
+        </View>
+        <View className="flex-row gap-x-5">
+          <TouchableOpacity className="bg-gray-800/20 p-2 rounded-full">
+            <Shield color={colors.icon} size={24} />
+          </TouchableOpacity>
+          <View className="relative">
+            <TouchableOpacity className="bg-gray-800/20 p-2 rounded-full">
+              <MessageSquare color={colors.icon} size={24} />
+            </TouchableOpacity>
+            <View className="absolute -top-1 -right-1 w-3 h-3 bg-[#FF4458] rounded-full border-2 border-[#0F1112]" />
+          </View>
+        </View>
+      </View>
+
+      <ScrollView className="flex-1 px-5">
+        <View
+          style={{ borderBottomColor: colors.border }}
+          className="flex-row items-center py-4 border-b"
+        >
+          <Search color={colors.icon} size={20} />
+          <TextInput
+            placeholder="Search 0 Matches"
+            placeholderTextColor={colors.tabIconDefault}
+            className="flex-1 ml-3 text-white font-semibold text-lg"
+            style={{ fontFamily: Fonts.rounded }}
+          />
+        </View>
+
+        <View className="flex-1 items-center justify-center mt-24">
+          <View className="relative w-40 h-56 items-center justify-center">
+            <View
+              style={{ borderColor: colors.border }}
+              className="absolute w-32 h-44 border-4 rounded-[20px] bg-[#1C1F21] top-4 left-2"
+            />
+            <View
+              style={{ borderColor: colors.border }}
+              className="absolute w-32 h-44 border-4 rounded-[20px] bg-[#1C1F21] rotate-[-5deg]"
+            />
+            <View
+              style={{ borderColor: "#24E081" }}
+              className="w-32 h-44 border-4 rounded-[20px] bg-[#1C1F21] rotate-[15deg] items-center justify-center"
+            >
+              <View className="border-2 border-[#24E081] rounded px-1 rotate-[-10deg]">
+                <Text className="text-[#24E081] font-black text-[10px] uppercase">
+                  Like
+                </Text>
+              </View>
+            </View>
+          </View>
+
+          <View className="mt-10 items-center px-10">
+            <Text
+              style={{ color: colors.text, fontFamily: Fonts.rounded }}
+              className="text-xl font-bold mb-3"
+            >
+              Get Swiping
+            </Text>
+            <Text
+              style={{ color: colors.icon }}
+              className="text-center leading-5 font-medium"
+            >
+              When you match with other users they&apos;ll appear here where you
+              can send them a message
+            </Text>
+          </View>
+        </View>
+      </ScrollView>
+    </CleanView>
   );
 }
-
-const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
-  },
-  titleContainer: {
-    flexDirection: 'row',
-    gap: 8,
-  },
-});
