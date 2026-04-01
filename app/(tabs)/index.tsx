@@ -1,4 +1,4 @@
-import ChatScreen from "../screens/chat";
+import ChatScreen from "../screens/chatEvent";
 
 export default function HomeScreen() {
   return <ChatScreen />;
