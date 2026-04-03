@@ -1,4 +1,5 @@
 import { CleanView } from "@/components/clean-view";
+import { useRouter } from "expo-router";
 import { Colors, Fonts } from "@/constants/theme";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 import { Flame, MessageSquare, Search, Shield } from "lucide-react-native";
@@ -14,6 +15,7 @@ import {
 export default function ChatScreen() {
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? "light"];
+  const router = useRouter();
 
   return (
     <CleanView>
@@ -32,7 +34,7 @@ export default function ChatScreen() {
             <Shield color={colors.icon} size={24} />
           </TouchableOpacity>
           <View className="relative">
-            <TouchableOpacity className="bg-gray-800/20 p-2 rounded-full">
+            <TouchableOpacity onPress={() => router.push("/screens/chatEvent")} className="bg-gray-800/20 p-2 rounded-full">
               <MessageSquare color={colors.icon} size={24} />
             </TouchableOpacity>
             <View className="absolute -top-1 -right-1 w-3 h-3 bg-[#FF4458] rounded-full border-2 border-[#0F1112]" />

@@ -5,7 +5,7 @@ export default function ScreensLayout() {
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="planner" />
       <Stack.Screen name="map" />
-      <Stack.Screen name="chat" />
+      <Stack.Screen name="chatEvent" />
     </Stack>
   );
 }
