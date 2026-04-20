@@ -10,7 +10,7 @@ export default function Index() {
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? "light"];
 
-  const loc = "./(account-panel)/login";
+  const loc = "./login";
 
   return (
     <CleanView>
