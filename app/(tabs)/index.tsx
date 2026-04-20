@@ -5,7 +5,6 @@ import { LinearGradient } from "expo-linear-gradient";
 import {
   ArrowUp,
   CheckCircle2,
-  HandMetal,
   Heart,
   MapPin,
   X,
@@ -174,33 +173,6 @@ export default function SwipeScreen() {
     <CleanView>
       <View className="flex-1 bg-black">
         {renderCards()}
-
-        {showGuide && (
-          <TouchableOpacity
-            activeOpacity={1}
-            onPress={() => setShowGuide(false)}
-            className="absolute inset-0 z-[100] flex-row"
-          >
-            <View className="flex-1 items-center justify-center bg-black/40 border-r border-white/20 border-dashed">
-              <HandMetal color="white" size={40} className="rotate-180 mb-2" />
-              <Text
-                style={{ fontFamily: Fonts.rounded }}
-                className="text-white font-black text-center uppercase"
-              >
-                Last
-              </Text>
-            </View>
-            <View className="flex-1 items-center justify-center bg-black/40">
-              <HandMetal color="white" size={40} className="mb-2" />
-              <Text
-                style={{ fontFamily: Fonts.rounded }}
-                className="text-white font-black text-center uppercase"
-              >
-                Next
-              </Text>
-            </View>
-          </TouchableOpacity>
-        )}
       </View>
     </CleanView>
   );

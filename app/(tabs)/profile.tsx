@@ -1,3 +1,4 @@
+import { useRouter } from "expo-router";
 import { CleanView } from "@/components/clean-view";
 import { Colors, Fonts } from "@/constants/theme";
 import { useColorScheme } from "@/hooks/use-color-scheme";
@@ -20,6 +21,7 @@ import {
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 export default function ProfileScreen() {
+  const router = useRouter();
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? "light"];
   const isDark = colorScheme === "dark";
@@ -135,6 +137,7 @@ export default function ProfileScreen() {
             title="Get verified"
             subtitle="Verify your profile to build trust."
             badge="+8%"
+            onPress={() => router.push("../(account-panel)/verify-email")}
           />
         </View>
 
@@ -239,11 +242,12 @@ export default function ProfileScreen() {
   );
 }
 
-function ActionItem({ colors, Icon, title, subtitle, badge }: any) {
+function ActionItem({ colors, Icon, title, subtitle, badge, onPress }: any) {
   return (
     <TouchableOpacity
       style={{ backgroundColor: colors.background, borderColor: colors.border }}
       className="p-4 rounded-2xl flex-row items-center border"
+      onPress={onPress}
     >
       <View className="relative mr-4">
         <View

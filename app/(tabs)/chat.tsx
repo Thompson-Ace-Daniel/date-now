@@ -34,7 +34,10 @@ export default function ChatScreen() {
             <Shield color={colors.icon} size={24} />
           </TouchableOpacity>
           <View className="relative">
-            <TouchableOpacity onPress={() => router.push("/screens/chatEvent")} className="bg-gray-800/20 p-2 rounded-full">
+            <TouchableOpacity
+              onPress={() => router.push("../(screens)/chatEvent")}
+              className="bg-gray-800/20 p-2 rounded-full"
+            >
               <MessageSquare color={colors.icon} size={24} />
             </TouchableOpacity>
             <View className="absolute -top-1 -right-1 w-3 h-3 bg-[#FF4458] rounded-full border-2 border-[#0F1112]" />
