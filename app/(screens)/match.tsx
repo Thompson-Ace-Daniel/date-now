@@ -67,20 +67,20 @@ export default function MatchedScreen() {
                 style={{ fontFamily: Fonts.rounded }}
                 className="text-white font-black text-xl"
               >
-                Send a Message
+                💬 Chat
               </Text>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => router.replace("/(tabs)")}
-            className="py-3"
+            onPress={() => router.push("./planner")}
+            className="bg-red-500 py-5 rounded-full items-center justify-center shadow-lg"
           >
             <Text
-              style={{ color: colors.icon, fontFamily: Fonts.rounded }}
-              className="text-center text-base font-bold opacity-70"
+              style={{ fontFamily: Fonts.rounded }}
+              className="text-white font-black text-xl"
             >
-              Keep Browsing
+              🔥 DATE NOW
             </Text>
           </TouchableOpacity>
         </View>

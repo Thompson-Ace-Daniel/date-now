@@ -1,26 +1,26 @@
-import React, { useRef, useState } from "react";
 import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Image,
-  KeyboardAvoidingView,
-  Platform,
-  FlatList,
-  StyleSheet,
-  PanResponder,
-  Alert,
-  Clipboard,
-  Animated,
-} from "react-native";
-import {
-  ShieldAlert,
   Camera,
   Contact,
   ImageIcon,
   Send,
+  ShieldAlert,
 } from "lucide-react-native";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  Alert,
+  Animated,
+  Clipboard,
+  FlatList,
+  Image,
+  KeyboardAvoidingView,
+  PanResponder,
+  Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 type Message = {
   id: string;
@@ -61,8 +61,28 @@ export default function ChatScreen() {
   const [input, setInput] = useState("");
   const [replyingTo, setReplyingTo] = useState<Message | null>(null);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [timerEnd, setTimerEnd] = useState<number | null>(null);
+  const [timeLeft, setTimeLeft] = useState<string>("");
 
   const listRef = useRef<FlatList<Message>>(null);
+
+  useEffect(() => {
+    if (timerEnd) {
+      const interval = setInterval(() => {
+        const now = Date.now();
+        const diff = timerEnd - now;
+        if (diff <= 0) {
+          setTimeLeft("Time's up!");
+          clearInterval(interval);
+        } else {
+          const hours = Math.floor(diff / (1000 * 60 * 60));
+          const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          setTimeLeft(`${hours}h ${minutes}m`);
+        }
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [timerEnd]);
 
   // Map to hold animated values per message (fixes hook issue)
   const translateXRefs = useRef<{ [key: string]: Animated.Value }>({}).current;
@@ -84,12 +104,15 @@ export default function ChatScreen() {
     if (editingId) {
       setMessages((prev) =>
         prev.map((msg) =>
-          msg.id === editingId ? { ...msg, text: input } : msg
-        )
+          msg.id === editingId ? { ...msg, text: input } : msg,
+        ),
       );
       setEditingId(null);
     } else {
       setMessages((prev) => [...prev, newMessage]);
+      if (!timerEnd) {
+        setTimerEnd(Date.now() + 3 * 60 * 60 * 1000); // 3 hours
+      }
     }
 
     setInput("");
@@ -146,7 +169,10 @@ export default function ChatScreen() {
         if (!isMe && gesture.dx < -50) {
           setReplyingTo(item);
         }
-        Animated.spring(translateX, { toValue: 0, useNativeDriver: true }).start();
+        Animated.spring(translateX, {
+          toValue: 0,
+          useNativeDriver: true,
+        }).start();
       },
     });
 
@@ -161,10 +187,7 @@ export default function ChatScreen() {
       >
         <TouchableOpacity onLongPress={() => handleLongPress(item)}>
           <View
-            style={[
-              styles.bubble,
-              isMe ? styles.myBubble : styles.theirBubble,
-            ]}
+            style={[styles.bubble, isMe ? styles.myBubble : styles.theirBubble]}
           >
             {item.replyTo && (
               <View style={styles.replyPreview}>
@@ -207,7 +230,9 @@ export default function ChatScreen() {
 
           <View style={{ marginLeft: 12 }}>
             <Text style={styles.name}>Sophia</Text>
-            <Text style={styles.status}>Active now</Text>
+            <Text style={styles.status}>
+              {timerEnd ? `⏱ ${timeLeft} to plan date` : "Active now"}
+            </Text>
           </View>
         </View>
 
@@ -228,9 +253,7 @@ export default function ChatScreen() {
       {/* REPLY BAR */}
       {replyingTo && (
         <View style={styles.replyBar}>
-          <Text style={styles.replyText}>
-            Replying to: {replyingTo.text}
-          </Text>
+          <Text style={styles.replyText}>Replying to: {replyingTo.text}</Text>
           <TouchableOpacity onPress={() => setReplyingTo(null)}>
             <Text style={styles.cancelReply}>✕</Text>
           </TouchableOpacity>
@@ -310,7 +333,12 @@ const styles = StyleSheet.create({
 
   theirWrapper: { alignItems: "flex-start" },
 
-  bubble: { maxWidth: "78%", paddingHorizontal: 15, paddingVertical: 11, borderRadius: 20 },
+  bubble: {
+    maxWidth: "78%",
+    paddingHorizontal: 15,
+    paddingVertical: 11,
+    borderRadius: 20,
+  },
 
   myBubble: { backgroundColor: "#ff4458", borderBottomRightRadius: 7 },
 
@@ -322,15 +350,34 @@ const styles = StyleSheet.create({
 
   time: { fontSize: 11, color: "#999", marginTop: 4, paddingHorizontal: 5 },
 
-  bottomWrap: { paddingHorizontal: 14, paddingVertical: 12, borderTopWidth: 1, borderTopColor: "#f0f0f0", backgroundColor: "#fff" },
+  bottomWrap: {
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    borderTopWidth: 1,
+    borderTopColor: "#f0f0f0",
+    backgroundColor: "#fff",
+  },
 
-  inputBar: { flexDirection: "row", alignItems: "center", backgroundColor: "#f7f7f7", borderRadius: 30, paddingHorizontal: 14, paddingVertical: 10 },
+  inputBar: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#f7f7f7",
+    borderRadius: 30,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+  },
 
   icon: { marginRight: 10 },
 
   input: { flex: 1, fontSize: 16, marginRight: 10 },
 
-  replyBar: { backgroundColor: "#f2f2f7", paddingHorizontal: 16, paddingVertical: 8, flexDirection: "row", alignItems: "center" },
+  replyBar: {
+    backgroundColor: "#f2f2f7",
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    flexDirection: "row",
+    alignItems: "center",
+  },
 
   replyText: { flex: 1, color: "#333", fontSize: 14 },
 

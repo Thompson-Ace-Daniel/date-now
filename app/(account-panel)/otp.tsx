@@ -16,7 +16,7 @@ import {
 export default function OTPScreen() {
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? "light"];
-  const { phoneNumber } = useLocalSearchParams();
+  const { contact, type } = useLocalSearchParams();
 
   const [code, setCode] = useState(["", "", "", "", "", ""]);
   const inputs = useRef<TextInput[]>([]);
@@ -64,7 +64,7 @@ export default function OTPScreen() {
           style={{ color: colors.icon }}
           className="mt-2 text-base font-medium"
         >
-          Code sent to: {phoneNumber}
+          Code sent to: {contact}
         </Text>
 
         <View className="flex-row justify-between mt-12 mb-8">
@@ -90,9 +90,7 @@ export default function OTPScreen() {
           ))}
         </View>
 
-        <TouchableOpacity
-          onPress={() => router.replace("../")}
-        >
+        <TouchableOpacity onPress={() => router.replace("../")}>
           <Text
             style={{ color: colors.tint, fontFamily: Fonts.rounded }}
             className="font-bold underline"
@@ -108,7 +106,7 @@ export default function OTPScreen() {
           <TouchableOpacity
             activeOpacity={0.8}
             disabled={!isValid}
-            onPress={() => router.push("./welcome")}
+            onPress={() => router.push("./personalization")}
             style={{ backgroundColor: isValid ? colors.tint : colors.border }}
             className="py-4 rounded-full items-center"
           >

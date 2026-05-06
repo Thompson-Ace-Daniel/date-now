@@ -2,25 +2,25 @@ import { CleanView } from "@/components/clean-view";
 import { Colors, Fonts } from "@/constants/theme";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 import { router } from "expo-router";
-import { ChevronLeft } from "lucide-react-native";
+import { ChevronLeft, Plus } from "lucide-react-native";
 import React, { useState } from "react";
-import { Pressable, Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-const options = [
-  "Long-term partner",
-  "Long-term, open to short",
-  "Short-term, open to long",
-  "Short-term fun",
-  "New friends",
-  "Still figuring it out",
-];
-
-export default function LookingForScreen() {
+export default function PersonalizationScreen() {
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? "light"];
-  const [selected, setSelected] = useState<string | null>(null);
+  const [photos, setPhotos] = useState<string[]>([]);
+  const [bio, setBio] = useState("");
 
-  const isValid = selected !== null;
+  const addPhoto = () => {
+    // Placeholder for photo picker
+    const placeholder = "https://picsum.photos/200";
+    if (photos.length < 2) {
+      setPhotos([...photos, placeholder]);
+    }
+  };
+
+  const isValid = photos.length >= 2 && bio.trim().length > 0;
 
   return (
     <CleanView>
@@ -38,32 +38,53 @@ export default function LookingForScreen() {
           style={{ fontFamily: Fonts.rounded, color: colors.text }}
           className="text-4xl font-black tracking-tighter mb-10"
         >
-          What are you looking for?
+          Add your photos & bio
         </Text>
 
-        <View className="flex-row flex-wrap justify-between">
-          {options.map((item) => (
-            <Pressable
-              key={item}
-              onPress={() => setSelected(item)}
-              style={{
-                borderColor: selected === item ? colors.tint : colors.border,
-                backgroundColor:
-                  selected === item ? `${colors.tint}10` : "transparent",
-              }}
-              className="w-[48%] h-32 border-2 rounded-3xl justify-center items-center mb-4 p-2"
-            >
-              <Text
-                style={{
-                  fontFamily: Fonts.rounded,
-                  color: selected === item ? colors.text : colors.icon,
-                }}
-                className="text-center font-bold"
+        <View className="mb-8">
+          <Text
+            style={{ color: colors.icon }}
+            className="mb-4 font-bold uppercase text-sm tracking-widest"
+          >
+            Photos (2 required)
+          </Text>
+          <View className="flex-row gap-x-4">
+            {photos.map((photo, index) => (
+              <View
+                key={index}
+                className="w-20 h-20 rounded-xl overflow-hidden"
               >
-                {item}
-              </Text>
-            </Pressable>
-          ))}
+                <Image source={{ uri: photo }} className="w-full h-full" />
+              </View>
+            ))}
+            {photos.length < 2 && (
+              <TouchableOpacity
+                onPress={addPhoto}
+                className="w-20 h-20 rounded-xl border-2 border-dashed border-gray-400 items-center justify-center"
+              >
+                <Plus color={colors.icon} size={24} />
+              </TouchableOpacity>
+            )}
+          </View>
+        </View>
+
+        <View className="mb-8">
+          <Text
+            style={{ color: colors.icon }}
+            className="mb-4 font-bold uppercase text-sm tracking-widest"
+          >
+            Bio
+          </Text>
+          <TextInput
+            placeholder="Tell us about yourself..."
+            placeholderTextColor={colors.tabIconDefault}
+            value={bio}
+            onChangeText={setBio}
+            multiline
+            numberOfLines={4}
+            className="border border-gray-300 rounded-xl p-4 text-base"
+            style={{ color: colors.text }}
+          />
         </View>
 
         <View className="flex-1 justify-end pb-10">

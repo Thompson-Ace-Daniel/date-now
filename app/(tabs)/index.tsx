@@ -1,14 +1,8 @@
 import { CleanView } from "@/components/clean-view";
-import { Colors, Fonts } from "@/constants/theme";
+import { Colors } from "@/constants/theme";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 import { LinearGradient } from "expo-linear-gradient";
-import {
-  ArrowUp,
-  CheckCircle2,
-  Heart,
-  MapPin,
-  X,
-} from "lucide-react-native";
+import { ArrowUp, CheckCircle2, Heart, MapPin, X } from "lucide-react-native";
 import React, { useRef, useState } from "react";
 import {
   Animated,
@@ -32,6 +26,7 @@ const PROFILES_DATA = [
     bio: "Pretty face, warm heart, good energy ✨ Let's see where this goes 💫",
     image:
       "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80",
+    reliability: 87,
   },
   {
     id: "2",
@@ -41,6 +36,7 @@ const PROFILES_DATA = [
     bio: "Coffee enthusiast and amateur photographer. Looking for someone to explore the city with. ☕️📸",
     image:
       "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80",
+    reliability: 92,
   },
   {
     id: "3",
@@ -50,6 +46,7 @@ const PROFILES_DATA = [
     bio: "Software Engineer by day, hiker by weekend. 🏔️ Let's build something cool.",
     image:
       "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
+    reliability: 78,
   },
   {
     id: "4",
@@ -59,6 +56,7 @@ const PROFILES_DATA = [
     bio: "Music is my love language. Favorite band? Ask me. 🎸",
     image:
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80",
+    reliability: 95,
   },
   {
     id: "5",
@@ -68,6 +66,7 @@ const PROFILES_DATA = [
     bio: "I make a mean lasagna. Change my mind. 🍝",
     image:
       "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=800&q=80",
+    reliability: 83,
   },
 ];
 
@@ -171,9 +170,7 @@ export default function SwipeScreen() {
 
   return (
     <CleanView>
-      <View className="flex-1 bg-black">
-        {renderCards()}
-      </View>
+      <View className="flex-1 bg-black">{renderCards()}</View>
     </CleanView>
   );
 }
@@ -201,7 +198,7 @@ function CardContent({ user }: any) {
         className="absolute bottom-0 left-0 right-0 pt-20 pb-10 px-5"
       >
         <View className="bg-[#1DB963] self-start px-2 py-1 rounded-md flex-row items-center mb-3">
-          <MapPin size={12} color="white" />
+          <MapPin size={12} color={colors.border} />
           <Text className="text-white text-[10px] font-bold ml-1">Nearby</Text>
         </View>
 
@@ -224,22 +221,27 @@ function CardContent({ user }: any) {
 
         <View className="mt-2">
           <View className="flex-row items-center mb-2">
-            <MapPin size={14} color="white" />
+            <MapPin size={14} color={colors.border} />
             <Text className="text-white/90 ml-1 text-sm font-semibold">
               {user.distance}
             </Text>
+            <View className="ml-4 flex-row items-center">
+              <Text className="text-green-400 text-sm font-semibold">
+                Reliability: {user.reliability}%
+              </Text>
+            </View>
           </View>
           <Text className="text-white/80 leading-5 text-sm" numberOfLines={3}>
             {user.bio}
           </Text>
         </View>
 
-        <View className="flex-row justify-center items-center mt-8 gap-x-6">
+        <View className="flex-row justify-center items-center mt-8 gap-x-4">
           <View className="w-14 h-14 bg-gray-900/80 rounded-full items-center justify-center border border-white/10">
-            <X color="#FF4458" size={30} strokeWidth={3} />
+            <X color={colors.accentColor} size={30} strokeWidth={3} />
           </View>
           <View className="w-16 h-16 bg-gray-900/80 rounded-full items-center justify-center border border-white/10">
-            <Heart color="#24E081" fill="#24E081" size={32} />
+            <Heart color={colors.tint} fill={colors.tint} size={32} />
           </View>
         </View>
       </LinearGradient>
