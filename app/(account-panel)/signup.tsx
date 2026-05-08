@@ -12,7 +12,28 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import logo from "../../assets/images/datenowLogo2.png";
+import { api } from "../../services/api";
+const logo = require("../../assets/images/datenowLogo2.png");
+
+const handleSignUp = async (
+  phoneNumber: string,
+  email: string,
+  password: string,
+) => {
+  try {
+    const response = await api.post("/user", {
+      phoneNumber: phoneNumber,
+      email: email,
+      password: password,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error signing up:", error);
+    throw error;
+  } finally {
+    router.replace("./phone");
+  }
+};
 
 export default function SignUpScreen() {
   const colorScheme = useColorScheme();
@@ -21,7 +42,6 @@ export default function SignUpScreen() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const [usePhone, setUsePhone] = useState(true);
 
   return (
     <CleanView>
@@ -41,35 +61,6 @@ export default function SignUpScreen() {
         </Text>
 
         <View className="gap-y-4">
-          <View className="flex-row justify-center gap-x-4 mb-4">
-            <TouchableOpacity
-              onPress={() => setUsePhone(true)}
-              style={{
-                backgroundColor: usePhone ? colors.tint : "transparent",
-              }}
-              className="px-4 py-2 rounded-full border border-white/30"
-            >
-              <Text
-                className={`font-bold ${usePhone ? "text-white" : "text-white/60"}`}
-              >
-                Phone
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => setUsePhone(false)}
-              style={{
-                backgroundColor: !usePhone ? colors.tint : "transparent",
-              }}
-              className="px-4 py-2 rounded-full border border-white/30"
-            >
-              <Text
-                className={`font-bold ${!usePhone ? "text-white" : "text-white/60"}`}
-              >
-                Email
-              </Text>
-            </TouchableOpacity>
-          </View>
-          {usePhone ? (
             <TextInput
               placeholder="Phone Number"
               placeholderTextColor="rgba(255,255,255,0.6)"
@@ -78,7 +69,6 @@ export default function SignUpScreen() {
               onChangeText={setPhone}
               className="w-full border border-white/30 rounded-2xl p-5 text-white text-base"
             />
-          ) : (
             <TextInput
               placeholder="Email"
               placeholderTextColor="rgba(255,255,255,0.6)"
@@ -88,7 +78,6 @@ export default function SignUpScreen() {
               onChangeText={setEmail}
               className="w-full border border-white/30 rounded-2xl p-5 text-white text-base"
             />
-          )}
           <TextInput
             placeholder="Password"
             placeholderTextColor="rgba(255,255,255,0.6)"
@@ -102,13 +91,8 @@ export default function SignUpScreen() {
         <TouchableOpacity
           activeOpacity={0.9}
           onPress={() =>
-            router.replace({
-              pathname: "./otp",
-              params: {
-                contact: usePhone ? phone : email,
-                type: usePhone ? "phone" : "email",
-                password,
-              },
+            handleSignUp(phone, email, password).catch((error) => {
+              console.error("Error signing up:", error);
             })
           }
           className="bg-white py-5 rounded-full items-center mt-8 shadow-lg"
