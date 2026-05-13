@@ -82,6 +82,7 @@ export default function PhoneNumberScreen() {
 
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
+          keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
           className="flex-1 justify-end pb-10"
         >
           <TouchableOpacity

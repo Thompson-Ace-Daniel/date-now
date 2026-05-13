@@ -54,7 +54,7 @@ export default function SignUpScreen() {
           <Image source={logo} className="w-40 h-40 mb-10 flex" />
         </View>
         <Text
-          style={{ fontFamily: Fonts.rounded, color: colors.background }}
+          style={{ fontFamily: Fonts.rounded, color: "#ffffff"}}
           className="text-4xl font-black text-center mb-10 tracking-tighter"
         >
           Sign Up
