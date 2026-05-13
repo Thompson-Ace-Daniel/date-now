@@ -51,9 +51,9 @@ export default function PhoneNumberScreen() {
           value={phone}
           onChangeText={setPhone}
           keyboardType="phone-pad"
-          placeholder="0000 000 0000"
+          placeholder="+234 907 474 7474"
           placeholderTextColor={colors.tabIconDefault}
-          maxLength={11}
+          maxLength={14}
           style={{
             fontFamily: Fonts.rounded,
             color: colors.text,

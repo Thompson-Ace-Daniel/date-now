@@ -108,7 +108,7 @@ export default function SignUpScreen() {
         <Text className="text-white text-center mt-6 font-medium">
           Already have an account?{" "}
           <Text
-            onPress={() => router.replace("./login")}
+            onPress={() => router.replace("./signup")}
             className="underline font-bold"
           >
             Log In
