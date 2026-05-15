@@ -16,22 +16,21 @@ import { api } from "../../services/api";
 const logo = require("../../assets/images/datenowLogo2.png");
 
 const handleSignUp = async (
-  phoneNumber: string,
+  name: string,
   email: string,
   password: string,
 ) => {
   try {
     const response = await api.post("/user", {
-      phoneNumber: phoneNumber,
+      name: name,
       email: email,
       password: password,
     });
-    return response.data;
+    router.replace("./phone");
+    console.log(response.data);
   } catch (error) {
     console.error("Error signing up:", error);
     throw error;
-  } finally {
-    router.replace("./phone");
   }
 };
 
@@ -40,7 +39,7 @@ export default function SignUpScreen() {
   const colors = Colors[colorScheme ?? "light"];
 
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
   return (
@@ -62,11 +61,11 @@ export default function SignUpScreen() {
 
         <View className="gap-y-4">
             <TextInput
-              placeholder="Phone Number"
+              placeholder="Full Name"
               placeholderTextColor="rgba(255,255,255,0.6)"
-              keyboardType="phone-pad"
-              value={phone}
-              onChangeText={setPhone}
+              keyboardType="default"
+              value={name}
+              onChangeText={setName}
               className="w-full border border-white/30 rounded-2xl p-5 text-white text-base"
             />
             <TextInput
@@ -91,10 +90,11 @@ export default function SignUpScreen() {
         <TouchableOpacity
           activeOpacity={0.9}
           onPress={() =>
-            handleSignUp(phone, email, password).catch((error) => {
+            handleSignUp(name, email, password).catch((error) => {
               console.error("Error signing up:", error);
             })
           }
+          disabled={!email || !password || !name}
           className="bg-white py-5 rounded-full items-center mt-8 shadow-lg"
         >
           <Text
@@ -108,7 +108,7 @@ export default function SignUpScreen() {
         <Text className="text-white text-center mt-6 font-medium">
           Already have an account?{" "}
           <Text
-            onPress={() => router.replace("./signup")}
+            onPress={() => router.replace("./login")}
             className="underline font-bold"
           >
             Log In
