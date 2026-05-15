@@ -49,7 +49,7 @@ export default function OTPScreen() {
           onPress={() => router.back()}
           className="w-10 h-10 items-start justify-center"
         >
-          <ChevronLeft color={colors.icon} size={32} />
+          <ChevronLeft color={"white"} size={32} />
         </TouchableOpacity>
       </View>
 
@@ -61,8 +61,7 @@ export default function OTPScreen() {
           Enter your code
         </Text>
         <Text
-          style={{ color: colors.icon }}
-          className="mt-2 text-base font-medium"
+          className="mt-2 text-base font-medium text-white text-xl"
         >
           Code sent to: {contact}
         </Text>
@@ -92,8 +91,8 @@ export default function OTPScreen() {
 
         <TouchableOpacity onPress={() => router.replace("../")}>
           <Text
-            style={{ color: colors.tint, fontFamily: Fonts.rounded }}
-            className="font-bold underline"
+            style={{ fontFamily: Fonts.rounded , color: colors.text}}
+            className="font-bold underline text-xl"
           >
             Didn&apos;t get the code? Resend
           </Text>

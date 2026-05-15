@@ -29,7 +29,7 @@ export default function PersonalizationScreen() {
           onPress={() => router.back()}
           className="w-10 h-10 items-start justify-center"
         >
-          <ChevronLeft color={colors.icon} size={32} />
+          <ChevronLeft color={"white"} size={32} />
         </TouchableOpacity>
       </View>
 
@@ -43,8 +43,7 @@ export default function PersonalizationScreen() {
 
         <View className="mb-8">
           <Text
-            style={{ color: colors.icon }}
-            className="mb-4 font-bold uppercase text-sm tracking-widest"
+            className="mb-4 font-bold uppercase text-xl tracking-widest text-white"
           >
             Photos (2 required)
           </Text>
@@ -62,7 +61,7 @@ export default function PersonalizationScreen() {
                 onPress={addPhoto}
                 className="w-20 h-20 rounded-xl border-2 border-dashed border-gray-400 items-center justify-center"
               >
-                <Plus color={colors.icon} size={24} />
+                <Plus color={"white"} size={24} />
               </TouchableOpacity>
             )}
           </View>
@@ -70,14 +69,13 @@ export default function PersonalizationScreen() {
 
         <View className="mb-8">
           <Text
-            style={{ color: colors.icon }}
-            className="mb-4 font-bold uppercase text-sm tracking-widest"
+            className="mb-4 font-bold uppercase text-sm tracking-widest text-white text-xl"
           >
             Bio
           </Text>
           <TextInput
             placeholder="Tell us about yourself..."
-            placeholderTextColor={colors.tabIconDefault}
+            placeholderTextColor={"#ddd"}
             value={bio}
             onChangeText={setBio}
             multiline

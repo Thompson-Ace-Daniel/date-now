@@ -34,7 +34,7 @@ export default function LikesScreen() {
         >
           <Text
             style={{
-              color: activeTab === "likes" ? colors.text : colors.icon,
+              color: activeTab === "likes" ? colors.icon : colors.text,
               fontFamily: Fonts.rounded,
             }}
             className="text-sm font-bold"
@@ -55,14 +55,14 @@ export default function LikesScreen() {
           <View className="flex-row items-center">
             <Text
               style={{
-                color: activeTab === "top-picks" ? colors.text : colors.icon,
+                color: activeTab === "top-picks" ? colors.icon : colors.text,
                 fontFamily: Fonts.rounded,
               }}
               className="text-sm font-bold"
             >
               Top Picks
             </Text>
-            <View className="w-2 h-2 bg-[#FF4458] rounded-full ml-1" />
+            <View className="w-2 h-2 bg-green-500 rounded-full ml-1" />
           </View>
           {activeTab === "top-picks" && (
             <View className="absolute bottom-0 w-full h-[2px] bg-[#FF4458]" />
@@ -74,7 +74,7 @@ export default function LikesScreen() {
         <View className="py-8 px-10">
           <Text
             style={{ color: colors.text }}
-            className="text-center text-sm font-semibold leading-5 opacity-90"
+            className="text-center text-md font-semibold leading-5 opacity-90"
           >
             Upgrade to Gold to see people who have already liked you.
           </Text>
@@ -92,7 +92,7 @@ export default function LikesScreen() {
 
           <Text
             style={{ color: colors.text }}
-            className="mt-10 text-lg font-bold tracking-tight"
+            className="mt-10 text-lg font-bold text-center tracking-tight"
           >
             See people who liked you with Date Now Gold™
           </Text>

@@ -25,7 +25,7 @@ export default function LocationLoadingScreen() {
           onPress={() => router.back()}
           className="w-10 h-10 items-center justify-center"
         >
-          <X color={colors.icon} size={28} />
+          <X color={colors.text} size={28} />
         </TouchableOpacity>
       </View>
 
@@ -45,7 +45,7 @@ export default function LocationLoadingScreen() {
             Searching...
           </Text>
           <Text
-            style={{ color: colors.icon }}
+            style={{ color: colors.text }}
             className="mt-3 text-base font-medium opacity-70 text-center px-10"
           >
             Adjusting the radar to find the perfect matches for you

@@ -31,16 +31,16 @@ export default function ChatScreen() {
         </View>
         <View className="flex-row gap-x-5">
           <TouchableOpacity className="bg-gray-800/20 p-2 rounded-full">
-            <Shield color={colors.icon} size={24} />
+            <Shield color={colors.text} size={24} />
           </TouchableOpacity>
           <View className="relative">
             <TouchableOpacity
               onPress={() => router.push("../(screens)/chatEvent")}
               className="bg-gray-800/20 p-2 rounded-full"
             >
-              <MessageSquare color={colors.icon} size={24} />
+              <MessageSquare color={colors.text} size={24} /> 
             </TouchableOpacity>
-            <View className="absolute -top-1 -right-1 w-3 h-3 bg-[#FF4458] rounded-full border-2 border-[#0F1112]" />
+            <View className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-[#0F1112]" />
           </View>
         </View>
       </View>
@@ -50,7 +50,7 @@ export default function ChatScreen() {
           style={{ borderBottomColor: colors.border }}
           className="flex-row items-center py-4 border-b"
         >
-          <Search color={colors.icon} size={20} />
+          <Search color={colors.text} size={20} />
           <TextInput
             placeholder="Search 0 Matches"
             placeholderTextColor={colors.tabIconDefault}
@@ -89,8 +89,8 @@ export default function ChatScreen() {
               Get Swiping
             </Text>
             <Text
-              style={{ color: colors.icon }}
-              className="text-center leading-5 font-medium"
+              style={{ color: colors.text }}
+              className="text-center leading-5 text-base font-medium"
             >
               When you match with other users they&apos;ll appear here where you
               can send them a message

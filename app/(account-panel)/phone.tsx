@@ -3,7 +3,7 @@ import { Colors, Fonts } from "@/constants/theme";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 import { router } from "expo-router";
 import { ChevronLeft } from "lucide-react-native";
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -35,7 +35,7 @@ export default function PhoneNumberScreen() {
           onPress={() => router.back()}
           className="w-10 h-10 items-start justify-center"
         >
-          <ChevronLeft color={colors.icon} size={32} />
+          <ChevronLeft color={"white"} size={32} />
         </TouchableOpacity>
       </View>
 
@@ -64,8 +64,8 @@ export default function PhoneNumberScreen() {
         />
 
         <Text
-          style={{ color: colors.icon }}
-          className="mt-6 text-sm font-medium leading-5 opacity-80"
+        style={{color: colors.text}}
+          className="mt-6 text-md font-medium leading-5  opacity-80"
         >
           We&apos;ll text you a code to verify you&apos;re really you. Message
           and data rates may apply.
@@ -73,8 +73,8 @@ export default function PhoneNumberScreen() {
 
         <TouchableOpacity className="mt-2">
           <Text
-            style={{ color: colors.tint, fontFamily: Fonts.rounded }}
-            className="font-bold underline"
+            style={{ fontFamily: Fonts.rounded , color: colors.text}}
+            className="font-bold underline text-xl"
           >
             What happens if your number changes?
           </Text>

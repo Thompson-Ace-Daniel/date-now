@@ -17,7 +17,7 @@ export default function LocationScreen() {
           style={{ backgroundColor: colors.border }}
           className="w-40 h-40 rounded-full items-center justify-center mb-10"
         >
-          <MapPin color={colors.tint} size={80} strokeWidth={1.5} />
+          <MapPin color={colors.text} size={80} strokeWidth={1.5} />
         </View>
 
         <Text
@@ -28,8 +28,8 @@ export default function LocationScreen() {
         </Text>
 
         <Text
-          style={{ color: colors.icon }}
-          className="text-center text-base font-medium leading-6 mb-12 opacity-80 px-4"
+          style={{ color: colors.text }}
+          className="text-center text-md font-medium leading-6 mb-12 opacity-80 px-4"
         >
           Set your device location to see who&apos;s in your neighborhood or
           beyond. You won&apos;t be able to match with people otherwise.
@@ -52,8 +52,8 @@ export default function LocationScreen() {
 
           <TouchableOpacity>
             <Text
-              style={{ color: colors.icon, fontFamily: Fonts.rounded }}
-              className="text-center font-bold opacity-60"
+              style={{ color: colors.text, fontFamily: Fonts.rounded }}
+              className="text-center font-bold opacity-60 underline"
             >
               How is my location used?
             </Text>

@@ -47,7 +47,7 @@ export default function ProfileScreen() {
             />
           </View>
           <TouchableOpacity>
-            <Settings color={colors.icon} size={26} strokeWidth={2} />
+            <Settings color={colors.text} size={26} strokeWidth={2} />
           </TouchableOpacity>
         </View>
 
@@ -108,8 +108,8 @@ export default function ProfileScreen() {
             </View>
           </View>
           <Text
-            style={{ color: colors.icon }}
-            className="text-center text-xs font-semibold px-4 leading-5"
+            style={{ color: colors.text }}
+            className="text-center text-md font-semibold px-4 leading-5"
           >
             Complete your profile to be seen by more people!
           </Text>
@@ -186,7 +186,7 @@ export default function ProfileScreen() {
                   <Text className="text-[10px] font-bold text-black">GOLD</Text>
                 </View>
               </View>
-              <TouchableOpacity className="bg-[#D4AF37] px-5 py-2 rounded-full">
+              <TouchableOpacity className="bg-[#D4AF37] ml-3 px-5 py-2 rounded-full">
                 <Text className="font-bold text-black text-xs uppercase">
                   Upgrade
                 </Text>
@@ -200,7 +200,7 @@ export default function ProfileScreen() {
               >
                 <Text
                   style={{ color: colors.text }}
-                  className="font-bold text-sm"
+                  className="font-bold text-xl"
                 >
                   What&apos;s Included
                 </Text>
@@ -267,13 +267,13 @@ function ActionItem({ colors, Icon, title, subtitle, badge, onPress }: any) {
         </View>
       </View>
       <View className="flex-1">
-        <Text style={{ color: colors.text }} className="font-bold text-sm">
+        <Text style={{ color: colors.text }} className="font-bold text-xl">
           {title}
         </Text>
         <Text
-          style={{ color: colors.icon }}
-          className="text-[11px]"
-          numberOfLines={1}
+          style={{ color: colors.text }}
+          className="text-[13px]"
+          numberOfLines={2}
         >
           {subtitle}
         </Text>
@@ -302,8 +302,8 @@ function FeatureCard({ colors, Icon, color, label, subLabel }: any) {
       </View>
       <Icon color={color} fill={color} size={26} className="mb-3" />
       <Text
-        style={{ color: colors.icon }}
-        className="text-[9px] font-bold text-center uppercase mb-1"
+        style={{ color: colors.text }}
+        className="text-[14px] font-bold text-center uppercase mb-1"
       >
         {label}
       </Text>
